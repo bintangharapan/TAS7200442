@@ -19,17 +19,13 @@ Route::get('/dosen', 'DosenController@dosen');
 
 Route::get('/dosen/cari', 'DosenController@pencarian');
 
-//Route::get('/dosen/deletedosen/{id}', 'DosenController@deletedosen');
+Route::get('/dosen/formulirdosen', 'DosenController@formulirdosen');
 
-//Route::get('/user', 'AuthController@user');
+Route::post('/dosen/simpandosen', 'DosenController@simpandosen');
 
-//Route::get('/user/formuliruser', 'AuthController@formuliruser');
+Route::get('/dosen/hapusdosen/{id}', 'DosenController@hapusdosen');
 
-//Route::post('/user/simpanuser', 'AuthController@simpanuser');
-
-//Route::get('/login', 'AuthController@login');
-
-//Route::post('/login/ceklogin', 'AuthController@ceklogin');
+Route::get('/dosen/editdosen/{id}', 'DosenController@editdosen');
 
 Route::get('/user', 'AuthController@user');
 

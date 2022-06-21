@@ -17,6 +17,25 @@ class DosenController extends Controller
          'dosen' => $dosen]);
     }
 
+    public function formulirdosen()
+    {
+        return view('formulirdosen');
+    }
+
+    public function simpandosen(Request $request)
+    {
+        $pakar = implode(",", $request->get('pakar'));
+        Dosen::create([
+            'nidn'=> $request->nidn,
+            'nama'=> $request->nama,
+            'status'=> $request->status,
+            'jafung'=> $request->jafung,
+            'pakar'=> $pakar
+        ]);
+        return redirect("/dosen");
+    }
+
+
     public function pencarian(Request $request)
     {
         $cari = $request->cari;
@@ -24,7 +43,14 @@ class DosenController extends Controller
         return view('dosen',['dosen' => $dosen]);
     }
 
-    public function deletedosen($id)
+    public function editdosen($id)
+    {
+        $dosen = Dosen::find($id);
+        return view('editdosen', ['dosen => $dosen']);
+    }
+
+
+    public function hapusdosen($id)
     {
         $dosen = Dosen::find($id);
         $dosen->delete();

@@ -37,13 +37,7 @@
               </div>
               <div class="col-lg-10 vh-100">
                   <div class="card mt-4">
-                      <div class="card-header">
-                          <a name="" id="" class="btn btn-primary" href="/dosen/formulirdosen" role="button"><i class="bi bi-plus-square-fill"></i> ADD DOSEN</a>
-                      <form class="form-inline my-2 my-lg-0 float-right" method="GET" action="/dosen/cari">
-                        <input class="form-control mr-sm-2" name="cari" type="search" placeholder="Search" aria-label="Search">
-                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                      </form>
-                      </div>
+                      <div class="card-header"></div>
                       <div class="card-body">
                           @if(session('alert'))
                           <div class="alert alert-warning alert-dismissible fade show" role="alert">
@@ -53,37 +47,58 @@
                               </button>
                           </div>
                           @endif
-                    <table class="table table-hover">
-                        <thead>
-                            <tr>
-                                <th scope="col">#</th>
-                                 <th scope="col">NIDN</th>
-                                 <th scope="col">Nama</th>
-                                 <th scope="col">Status</th>
-                                 <th scope="col">Jabatan Fungsional</th>
-                                 <th scope="col">Keahlian</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach($dosen as $no => $d)
-                            <tr>
-                                 <th scope="row">{{ $dosen->firstItem() + $no }}</th>
-                                 <td>{{$d -> nidn}}</td>
-                                 <td>{{$d -> nama}}</td>
-                                 <td>{{$d -> status}}</td>
-                                 <td>{{$d -> jafung}}</td>
-                                 <td>{{$d -> pakar}}</td>
-                                 <td>
-                                     <a href="/dosen/editdosen/{{ $d-> id}}" class="btn btn-ouline-info" style="color:blue"><i class="bi bi-pencil"></i></a>
-                                     <a href="/dosen/hapusdosen/{{ $d-> id}}" class="btn btn-ouline-danger" style="color:red"><i class="bi bi-x-square"></i></a>
-                                 </td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                    {{ $dosen -> count()}}
-                    <span class="float-right">{{ $dosen ->links() }}</span>
-                      </div>
+            <div class="container-fluid rounded">
+            <form action="/dosen/simpandosen" method="POST">
+            @csrf
+            <div class="form-group w-25">
+                <label>NIDN</label>
+                <input type="number" name="nidn" class="form-control" value="{{ $dosen -> nidn }}" readonly>
+            </div>
+            <div class="form-group w-25">
+                <label>Nama Dosen</label>
+                <input type="text" name="nama" class="form-control" value="{{ $dosen -> nama }}" required>
+            </div>
+            <label>Status</label>
+            <div class="form-check w-25=">
+                <input type="radio" name="status" value="Dosen Tetap" {{ $dosen->status = 'Dosen Tetap' ? 'checked':'' }} 
+                class="form-check-input">
+                <label>Dosen Tetap</label>
+            </div>
+            <div class="form-check w-25">
+                <input type="radio" name="status" value="Dosen Tidak Tetap" {{ $dosen->status = 'Dosen Tidak Tetap' ? 'checked':'' }}
+                 class= "form-check-input">
+                <label>Dosen Tidak Tetap</label>
+            </div>
+            <div class="form-group w-25">
+                <label>Jabatan Fungsional</label>
+                <select name="jafung" class="form-control">
+                    <option value="0">-----Pilih Jabatan Fungsional-----</option>
+                    <option value="Tenaga Pengajar">Tenaga Pengajar</option>
+                    <option value="Asisten Ahli">Asisten Ahli</option>
+                    <option value="Lektor">Lektor</option>
+                    <option value="Lektor Kepala">Lektor Kepala</option>
+                    <option value="Guru Besar">Guru Besar</option>
+                </select>
+            </div>
+            <label>Bidang Keahlian</label>
+            <div class="form-check w-25">
+                <input type="checkbox" name="pakar[]" value="Artificial Intelligence" class="form-check-input">
+                <label>Artificial Intelligence</label>
+            </div>
+            <div class="form-check w-25">
+                <input type="checkbox" name="pakar[]" value="Web Engineer" class="form-check-input">
+                <label>Web Engineer</label>
+            </div>
+            <div class="form-check w-25">
+                <input type="checkbox" name="pakar[]" value="DB Engineer" class="form-check-input">
+                <label>DB Engineer</label>
+            </div>
+            <div class="form-group pt-4">
+                <input type="submit" value="SIMPAN" class="btn btn-outline-primary">
+            </div>
+        </form>
+      </div>
+                    
                   </div>
               </div>
           </div>
